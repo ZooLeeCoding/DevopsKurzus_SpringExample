@@ -28,7 +28,7 @@ pipeline {
 		}
 		stage("Docker build") {
 			steps {
-				sh "docker build -t szaboz/calculator-example:latest ."
+				sh "docker build -t calculator-example ."
 			}
 		}
 		stage("Docker login") {
@@ -38,7 +38,8 @@ pipeline {
 		}
 		stage("Docker push") {
 			steps {
-				sh "docker push szaboz/calculator-example:latest ."
+			    sh "docker tag calculator-example szaboz/calculator-example"
+				sh "docker push szaboz/calculator-example ."
 			}
 		}
 		stage("Deploy to staging") {
