@@ -18,27 +18,27 @@ pipeline {
 				sh "./gradlew build"
 			}
 		}
-		stage("Docker build")
+		stage("Docker build") {
 			steps {
 				sh "docker build -t szaboz/calculator-example ."
 			}
 		}
-		stage("Docker login")
+		stage("Docker login") {
 			steps {
 				sh "docker login --username=szaboz --password=$docker_password"
 			}
 		}
-		stage("Docker push")
+		stage("Docker push") {
 			steps {
 				sh "docker push szaboz/calculator-example ."
 			}
 		}
-		stage("Deploy to staging")
+		stage("Deploy to staging") {
 			steps {
 				sh "docker run -d --rm -p 8765:8080 --name calculator szaboz/calculator-example"
 			}
 		}
-		stage("Acceptance test")
+		stage("Acceptance test") {
 			steps {
 			    sleep 60
 				sh "./acceptance_test.sh"
