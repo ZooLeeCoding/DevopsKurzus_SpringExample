@@ -39,7 +39,7 @@ pipeline {
 		stage("Docker push") {
 			steps {
 			    sh "docker tag calculator-example szaboz/calculator-example"
-				sh "docker push szaboz/calculator-example ."
+				sh "docker push szaboz/calculator-example"
 			}
 		}
 		stage("Deploy to staging") {
