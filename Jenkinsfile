@@ -13,9 +13,17 @@ pipeline {
 			}
 		}
 		stage("Package Java") {
-			when { expression { return params.BUILD_PROJECT } }
 			steps {
 				sh "./gradlew build"
+			}
+		}
+		stage("LS") {
+			steps {
+				sh "ls"
+				echo "Mappa"
+				sh "ls build"
+				echo "Libs"
+				sh "ls build/libs"
 			}
 		}
 		stage("Docker build") {
