@@ -23,6 +23,11 @@ pipeline {
 				sh "docker build -t szaboz/calculator-example ."
 			}
 		}
+		stage("Docker login")
+			steps {
+				sh "docker login --username=szaboz --password=$docker_password"
+			}
+		}
 		stage("Docker push")
 			steps {
 				sh "docker push szaboz/calculator-example ."
