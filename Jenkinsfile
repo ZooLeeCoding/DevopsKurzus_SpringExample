@@ -11,9 +11,18 @@ pipeline {
 				sh "./gradlew build"
 			}
 		}
+		stage("LS") {
+			steps {
+				sh "ls"
+				echo "Mappa"
+				sh "ls build"
+				echo "Libs"
+				sh "ls build/libs"
+			}
+		}
 		stage("Docker build") {
 			steps {
-				sh "docker build -t szaboz/calculator-example ."
+				sh "docker build -t calculator-example ."
 			}
 		}
 		stage("Docker login") {
@@ -23,7 +32,8 @@ pipeline {
 		}
 		stage("Docker push") {
 			steps {
-				sh "docker push szaboz/calculator-example ."
+			    sh "docker tag calculator-example szaboz/calculator-example"
+				sh "docker push szaboz/calculator-example"
 			}
 		}
 		stage("Deploy to staging") {
