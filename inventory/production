@@ -1,0 +1,2 @@
+[webservers]
+web1 ansible_host=sshdocker ansible_user=master ansible_ssh_pass=master

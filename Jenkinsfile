@@ -36,21 +36,12 @@ pipeline {
 				sh "docker push szaboz/calculator-example"
 			}
 		}
-		stage("Deploy to staging") {
+		
+		stage("Deploy to Production") {
 			steps {
-				sh "docker run -d --rm -p 8765:8080 --name calculator szaboz/calculator-example"
-			}
-		}
-		stage("Acceptance test") {
-			steps {
-			    sleep 60
-				sh "./acceptance_test.sh"
+			    sh "ansible-playbook playbook.yml -i inventory/production"
 			}
 		}
 	}
-	post { 
-	    always { 
-	        sh 'docker stop calculator' 
-	    } 
-	}
+	
 }
